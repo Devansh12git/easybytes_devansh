@@ -12,12 +12,17 @@ app.use(cors()); // Allows all origins by default
 app.use(express.json());
 
 // PostgreSQL connection configuration
+const { Pool } = require('pg');
+
 const db = new Pool({
-  host: 'postgresql://root:RsLIbAbpc1wx9BOnropnFYLh1GSvbAeG@dpg-cspmqelumphs73d5a77g-a.oregon-postgres.render.com/devansh',
-  user: 'root',       // PostgreSQL username
-  password: 'RsLIbAbpc1wx9BOnropnFYLh1GSvbAeG',       // PostgreSQL password
+  host: 'dpg-cspmqelumphs73d5a77g-a.oregon-postgres.render.com', // Hostname (without "postgresql://")
+  user: 'root',           // Username
+  password: 'RsLIbAbpc1wx9BOnropnFYLh1GSvbAeG',  // Password
   database: 'devansh',    // Database name
-  port: 5432              // Default PostgreSQL port
+  port: 5432,             // Default PostgreSQL port
+  ssl: {
+    rejectUnauthorized: false, // Required for Render PostgreSQL connections
+  }
 });
 
 // Connect to PostgreSQL
